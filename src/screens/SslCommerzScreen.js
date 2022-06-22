@@ -1,10 +1,13 @@
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { WebView } from 'react-native-webview';
+import {useRootStore} from '../models/root-store-provider';
+
+
 
 const SslCommerzScreen = ({ navigation, route }) => {
   const data = route?.params?.data;
-
+  const {user} = useRootStore();
 
   const Spinner = () => (
     <View style={styles.activityContainer}>
@@ -12,8 +15,11 @@ const SslCommerzScreen = ({ navigation, route }) => {
     </View>
   );
 
+
+
   const onMessage = async event => {
     console.log(event.nativeEvent.data);
+    user.setName('Ashiqur Rahman ONe')
     if (event.nativeEvent?.data) {
       navigation.navigate('PaymentStatus', { data: { status: event.nativeEvent.data } })
     }
@@ -37,7 +43,7 @@ const SslCommerzScreen = ({ navigation, route }) => {
   )
 }
 
-export default SslCommerzScreen
+export default  SslCommerzScreen
 
 const styles = StyleSheet.create({
   container: {

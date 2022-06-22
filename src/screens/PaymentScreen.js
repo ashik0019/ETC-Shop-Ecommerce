@@ -1,13 +1,16 @@
 import axios from 'axios'
+import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react'
 import { Text, StyleSheet, View, Button, ActivityIndicator } from 'react-native'
-import SslCommerzScreen from './SslCommerzScreen'
+import {useRootStore} from '../models/root-store-provider';
 
 
-export default PaymentScreen = ({ navigation }) => {
+export default PaymentScreen =  observer( ({ navigation }) => {
   const [isLoading, setisLoading] = useState(false)
+  const {user} = useRootStore();
 
   const paymentHandler = async () => {
+   // user.storeData({id: "1",name: 'Abdullah Safwan '})
     setisLoading(true)
     const payload = {
       total_amount: 500,
@@ -39,6 +42,7 @@ export default PaymentScreen = ({ navigation }) => {
       <Text style={styles.heading}>SSLCOMMERZ PAYMENT</Text>
       <View style={styles.shippingInfoContainer}>
         <Text style={styles.heading}>Shipping Info</Text>
+        <Text style={styles.heading}>{user.getName}</Text>
         <Text style={styles.paymentNormalText}>Name: Ashiqur Rahman</Text>
         <Text style={styles.paymentNormalText}>Email: ashiq@gmail.com</Text>
         <Text style={styles.paymentNormalText}>Phone: 01723144515</Text>
@@ -61,7 +65,7 @@ export default PaymentScreen = ({ navigation }) => {
     </View>
   )
 
-}
+})
 
 const styles = StyleSheet.create({
   container: {
